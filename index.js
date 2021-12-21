@@ -11,16 +11,21 @@ ctx.fillRect(0, 0, c.width, c.height);
 
 // draws circle radius r about x,y on context
 function drawCircle(context, circle) {
-  context.strokeStyle = BLACK;
   context.beginPath();
   context.arc(circle.x, circle.y, circle.r, 0, 2 * Math.PI);
+
+  var c = Math.floor(Math.random() * 200) + 55;
+  console.log(c);
+  context.fillStyle = `rgb(${c},${c},${c})`
+  context.strokeStyle = `rgb(${c},${c},${c})`
+  context.fill();
   context.stroke();
 }
 
 function collision(circles, cand) {
   for (var i = 0; i < circles.length; i++) {
     maxDist = circles[i].r + cand.r;
-    dist = Math.sqrt((circles[i].x - cand.x) ** 2 + (circles[i].y - cand.y) ** 2);
+    dist = ((circles[i].x - cand.x) ** 2 + (circles[i].y - cand.y) ** 2) ** 0.5;
     if (dist < maxDist) {
       return true;
     }
@@ -28,10 +33,12 @@ function collision(circles, cand) {
   return false;
 }
 
-function placeCircle(circles, x, r) {
+// Let a circle with a radius r at horizontal position x fall until it collides
+// with any other circle in array
+function fallCircle(circles, x, r) {
   var circle;
   var foundCandidate = false;
-  for (var i = r; i < c.height - r; i++) {
+  for (var i = r; i < c.height - r; i+=0.1) {
     var candidate = {
       x: x,
       y: i,
@@ -50,6 +57,33 @@ function placeCircle(circles, x, r) {
   }
   else {
     return null;
+  }
+}
+
+// Iterate over adjacent circles until they can no longer fall
+function placeCircle(circles, x, r) {
+  var center = fallCircle(circles, x, r)
+  if (center == null) {
+    return null;
+  }
+  while (1) {
+    var left = fallCircle(circles, Math.max(r, center.x - 1), r);
+    var right = fallCircle(circles, Math.min(center.x + 1, c.width - r), r);
+    console.log(left, center, right);
+
+    if (left == null || right == null) {
+      return center;
+    }
+
+    if (left.y > center.y) {
+      center = left;
+    }
+    else if (right.y > center.y) {
+      center = right;
+    }
+    else {
+      return center;
+    }
   }
 }
 
