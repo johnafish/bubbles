@@ -1,25 +1,17 @@
-// Colors
-const BLACK = "rgb(0,0,0)";
-const WHITE = "rgb(255,255,255)";
-
-// Canvas setup
-var c = document.getElementById("bubblecanvas");
-var ctx = c.getContext("2d");
-
-ctx.fillStyle = WHITE;
-ctx.fillRect(0, 0, c.width, c.height);
+function randomColor() {
+  var r = Math.floor(Math.random() * 200) + 55;
+  var g = Math.floor(Math.random() * 200) + 55;
+  var b = Math.floor(Math.random() * 200) + 55;
+  return `rgb(${r},${g},${b})`
+}
 
 // draws circle radius r about x,y on context
 function drawCircle(context, circle) {
   context.beginPath();
   context.arc(circle.x, circle.y, circle.r, 0, 2 * Math.PI);
 
-  var c = Math.floor(Math.random() * 200) + 55;
-  console.log(c);
-  context.fillStyle = `rgb(${c},${c},${c})`
-  context.strokeStyle = `rgb(${c},${c},${c})`
+  context.fillStyle = randomColor();
   context.fill();
-  context.stroke();
 }
 
 function collision(circles, cand) {
@@ -67,9 +59,8 @@ function placeCircle(circles, x, r) {
     return null;
   }
   while (1) {
-    var left = fallCircle(circles, Math.max(r, center.x - 1), r);
-    var right = fallCircle(circles, Math.min(center.x + 1, c.width - r), r);
-    console.log(left, center, right);
+    var left = fallCircle(circles, Math.max(r, center.x - 2), r);
+    var right = fallCircle(circles, Math.min(center.x + 2, c.width - r), r);
 
     if (left == null || right == null) {
       return center;
@@ -86,6 +77,13 @@ function placeCircle(circles, x, r) {
     }
   }
 }
+
+// Canvas setup
+var c = document.getElementById("bubblecanvas");
+var ctx = c.getContext("2d");
+
+ctx.fillStyle = randomColor();
+ctx.fillRect(0, 0, c.width, c.height);
 
 // Main loop
 var stopped = false;
