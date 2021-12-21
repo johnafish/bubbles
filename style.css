@@ -7,8 +7,16 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  flex-direction: column;
+  font-family: monospace;
+  margin: 0px;
 }
 
 #bubblecanvas {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+button {
+  margin: 0.67em;
+  font-family: monospace;
 }

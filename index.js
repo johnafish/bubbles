@@ -78,24 +78,37 @@ function placeCircle(circles, x, r) {
   }
 }
 
+function generateScene() {
+  ctx.clearRect(0, 0, c.width, c.height);
+  ctx.fillStyle = randomColor();
+  ctx.fillRect(0, 0, c.width, c.height);
+
+  // Main loop
+  var stopped = false;
+  var circles = [];
+
+  while (1) {
+    var radius = Math.exp(-4 * Math.random()) * c.width / 2;
+    var x = Math.random() * (c.width - 2 * radius) + radius; // fix to prevent overlap later
+    var circle = placeCircle(circles, x, radius);
+    if (circle == null) {
+      break;
+    }
+    drawCircle(ctx, circle);
+    circles.push(circle);
+  }
+}
+
+function download() {
+  let downloadLink = document.createElement('a');
+  downloadLink.setAttribute('download', `${Date.now()}.png`);
+  let dataURL = c.toDataURL('image/png');
+  let url = dataURL.replace(/^data:image\/png/,'data:application/octet-stream');
+  downloadLink.setAttribute('href', url);
+  downloadLink.click();
+}
+
 // Canvas setup
 var c = document.getElementById("bubblecanvas");
 var ctx = c.getContext("2d");
-
-ctx.fillStyle = randomColor();
-ctx.fillRect(0, 0, c.width, c.height);
-
-// Main loop
-var stopped = false;
-var circles = [];
-
-while (1) {
-  var radius = Math.exp(-4 * Math.random()) * c.width / 2;
-  var x = Math.random() * (c.width - 2 * radius) + radius; // fix to prevent overlap later
-  var circle = placeCircle(circles, x, radius);
-  if (circle == null) {
-    break;
-  }
-  drawCircle(ctx, circle);
-  circles.push(circle);
-}
+generateScene(ctx);
