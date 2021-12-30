@@ -1,6 +1,8 @@
 # bubbles
 generative bubble art
 
+![1640890356879](https://user-images.githubusercontent.com/1160599/147780276-dfcb3fea-6fc5-4a22-a05c-61d6104884c1.png)
+![1640890352879](https://user-images.githubusercontent.com/1160599/147780290-a17372ff-6046-4c8c-a545-3f98621dca81.png)
 ![1640098428761](https://user-images.githubusercontent.com/1160599/146950184-79d4ad2c-e2d8-4d01-b88c-6f3ff156e4c0.png)
 ![1640098418497](https://user-images.githubusercontent.com/1160599/146950189-3e264904-0e29-44ee-b9be-4d71d6b2edfb.png)
 ![1640098422025](https://user-images.githubusercontent.com/1160599/146950197-2cfdae6c-a88c-4114-afb9-f1fbd943821e.png)
